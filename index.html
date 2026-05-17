@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resume ATS Checker</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="workspace" aria-label="Resume checker workspace">
+        <header class="topbar">
+          
+          <button class="icon-button" id="themeBtn" type="button" title="Toggle dark mode">
+  <span aria-hidden="true">◐</span>
+  <span>Theme</span>
+</button>
+          <div>
+            <p class="eyebrow">AI-based screening assistant</p>
+            <h1>Resume ATS Checker</h1>
+          </div>
+          <button class="icon-button" id="sampleBtn" type="button" title="Load sample resume">
+            <span aria-hidden="true">+</span>
+            <span>Sample</span>
+          </button>
+        </header>
+
+        <div class="editor-grid">
+          <section class="panel input-panel" aria-label="Resume input">
+            <div class="panel-header">
+              <div>
+                <h2>Resume</h2>
+                <p>Paste your resume text or upload a plain text file.</p>
+              </div>
+              <label class="file-button">
+                <input id="resumeFile" type="file" accept=".txt,.md,.text" />
+                Upload
+              </label>
+            </div>
+            <textarea id="resumeText" spellcheck="true" placeholder="Paste resume text here..."></textarea>
+          </section>
+
+          <section class="panel input-panel" aria-label="Job description input">
+            <div class="panel-header">
+              <div>
+                <h2>Job Description</h2>
+                <p>Add a target role to check match quality.</p>
+              </div>
+              <button class="ghost-button" id="clearBtn" type="button">Clear</button>
+            </div>
+            <textarea id="jobText" spellcheck="true" placeholder="Paste job description here..."></textarea>
+          </section>
+        </div>
+
+        <div class="action-row">
+          <button class="primary-button" id="analyzeBtn" type="button">Analyze Resume</button>
+          <p id="statusText" role="status">Ready when you are.</p>
+        </div>
+
+        <section class="results" id="results" aria-live="polite">
+          <div class="score-panel">
+            <div class="score-ring" id="scoreRing">
+              <span id="scoreValue">--</span>
+              <small>ATS score</small>
+            </div>
+            <div class="score-copy">
+              <h2 id="scoreTitle">Add your resume to begin</h2>
+              <p id="scoreSummary">The checker reviews keyword fit, section structure, measurable impact, readability, and common ATS parsing risks.</p>
+              <div class="score-actions">
+                <button class="ghost-button" id="detailsBtn" type="button">Score Details</button>
+                <button class="ghost-button" id="tipsBtn" type="button">ATS Tips</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="metrics-grid">
+            <article class="metric" data-popup="keyword">
+              <span id="keywordMetric">0%</span>
+              <p>Keyword match</p>
+            </article>
+            <article class="metric" data-popup="section">
+              <span id="sectionMetric">0%</span>
+              <p>Section health</p>
+            </article>
+            <article class="metric" data-popup="impact">
+              <span id="impactMetric">0%</span>
+              <p>Impact signals</p>
+            </article>
+            <article class="metric" data-popup="format">
+              <span id="formatMetric">0%</span>
+              <p>ATS format</p>
+            </article>
+          </div>
+
+          <div class="insight-grid">
+            <section class="panel">
+              <h2>Priority Fixes</h2>
+              <ul class="insight-list" id="fixList"></ul>
+            </section>
+            <section class="panel">
+              <h2>Matched Keywords</h2>
+              <div class="chip-cloud" id="matchedKeywords"></div>
+            </section>
+            <section class="panel">
+              <h2>Missing Keywords</h2>
+              <div class="chip-cloud warning" id="missingKeywords"></div>
+            </section>
+            <section class="panel">
+              <h2>Rewrite Ideas</h2>
+              <ul class="insight-list" id="rewriteList"></ul>
+            </section>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
+      <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <button class="modal-close" id="modalClose" type="button" aria-label="Close popup">x</button>
+        <p class="eyebrow" id="modalEyebrow">Resume insight</p>
+        <h2 id="modalTitle">Score details</h2>
+        <div class="modal-body" id="modalBody"></div>
+      </section>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
